@@ -11,8 +11,6 @@ public class Realm {
     private static Battle battle = null;
 
     public static void main(String[] args) {
-        //Инициализируем BufferedReader
-       // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         //Инициализируем класс для боя
         battle = new Battle();
         //Первое, что нужно сделать при запуске игры, это создать персонажа, поэтому мы предлагаем ввести его имя
@@ -24,13 +22,13 @@ public class Realm {
             e.printStackTrace();
         }
     }
-    private static void printNavigation() {
+    static void printNavigation() {
         System.out.println("Куда вы хотите пойти?");
         System.out.println("1. К Торговцу");
         System.out.println("2. В темный лес");
         System.out.println("3. Выход");
     }
-    private static void command(String string) throws IOException {
+    public static void command(String string) throws IOException {
         //Если это первый запуск, то мы должны создать игрока, именем будет служить первая введенная строка из консоли
         if (player == null) {
             player = new Player(
@@ -49,8 +47,7 @@ public class Realm {
         //Варианты для команд
         switch (string) {
             case "1" -> {
-                System.out.println("Торговец еще не приехал");
-                command(br.readLine());
+                Shop.byeGoods();
             }
             case "2" -> commitFight();
             case "3" -> System.exit(1);
@@ -63,8 +60,6 @@ public class Realm {
         //Снова ждем команды от пользователя
         command(br.readLine());
     }
-
-
 
     public static void commitFight() {
         battle.fight(player, createMonster(), new Realm.FightCallback() {
@@ -93,7 +88,6 @@ public class Realm {
         if (random % 2 == 0) return new Goblin("Гоблин",50,10,10,100,20);
         else return new Skeleton("Скелет",25,20,20,100,10);
     }
-
 
     public interface FightCallback {
         default void fightWin() {

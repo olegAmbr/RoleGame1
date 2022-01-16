@@ -36,7 +36,11 @@ public class Battle {
         //Отнимаем количество урона из здоровья защищающегося
         int defenderHealth = defender.getHealth() - hit;
         //Если атака прошла, выводим в консоль сообщение об этом
-        if (hit != 0) {
+        if (hit > attacker.power) {
+            System.out.println(String.format("%s Нанес критический удар в %d единиц!", attacker.getName(), hit));
+            System.out.println(String.format("У %s осталось %d единиц здоровья...", defender.getName(), defenderHealth));
+        }
+        else if (hit != 0) {
             System.out.println(String.format("%s Нанес удар в %d единиц!", attacker.getName(), hit));
             System.out.println(String.format("У %s осталось %d единиц здоровья...", defender.getName(), defenderHealth));
         } else {
